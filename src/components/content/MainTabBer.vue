@@ -1,5 +1,5 @@
 <template>
-  <tab-bar>
+  <tab-bar class="tabbar">
       <tab-bar-item path='/home' activeColor="deepPink">
             <img src="assets/images/tabbar/home.svg" slot="item-icon" alt="">
             <img src="assets/images/tabbar/home_active.svg" slot="item-icon-active" alt="">
@@ -36,6 +36,6 @@ components:{
 }
 </script>
 
-<style>
+<style scoped>
 
 </style>
