@@ -30,7 +30,7 @@ import GoodsList from 'components/content/goods/GoodsList'
 
 
 import Scroll from 'components/common/scroll/Scroll'
-import BackTop from 'components/content/backTop/BackTop.vue'
+import {backTopMixin} from 'common/mixin.js'
 
 import {getHomeMultidata,getHomeData} from 'network/home'
 import {debounce} from 'common/utils.js'
@@ -47,14 +47,13 @@ export default {
       },
       goodsitem:['pop','new','sell'],
       tabbarctrolIndex:0,
-      position:0,
       tabOffsetTop:0,
       isTabFixed:false,
       saveY:0,
       itemImageListener:null,
     }
   },
- 
+ mixins:[backTopMixin],
   components:{
     NavBar,
     HomeSwiper,
@@ -63,7 +62,6 @@ export default {
     TabControl,
     GoodsList,
     Scroll,
- BackTop
 
   },
   created(){
@@ -104,9 +102,7 @@ export default {
     this.$refs.tabbarCtrol1.currentIndex = this.tabbarctrolIndex;
     this.$refs.tabbarCtrol2.currentIndex = this.tabbarctrolIndex;
   },
-  topClick(){
-      this.$refs.scrollRef.scrollTo(0,0,500);
-  },
+
   // 防抖动函数
   scrollMove(position){
     this.position = -position.y;
@@ -145,7 +141,7 @@ this.tabOffsetTop = this.$refs.tabbarCtrol2.$el.offsetTop;
     //  保存Y值
      this.saveY = this.$refs.scrollRef.getScrollY();
     //  取消全局事件的监听
-    this.$bus.off('itemImageLoad',this.itemImageListener)
+    this.$bus.$off('itemImageLoad',this.itemImageListener)
    }
   
 }

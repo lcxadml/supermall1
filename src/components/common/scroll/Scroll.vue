@@ -48,7 +48,7 @@ if(this.pullUpLoad){
     this.$emit('pullingUp')
       setTimeout(()=>{
          this.scroll.finishPullUp();
-      },1000)
+      },200)
     })
 }
 },

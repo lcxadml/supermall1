@@ -17,6 +17,7 @@ export default {
         height: 50px;
         background: url('~assets/images/common/top.png');
         background-size: 100% 100%;
+        z-index: 999;
         
     }
 </style>
