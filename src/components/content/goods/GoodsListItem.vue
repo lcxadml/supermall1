@@ -1,12 +1,12 @@
 <template>
-  <div class="goodslistitem">
-  <img :src="goodsItem.show.img" alt="">
+  <a class="goodslistitem" href="javascript:;" @click="itemclick">
+  <img :src="showImage" alt="" @load="imageLoad">
   <div>
       <p>{{goodsItem.title}}</p>
       <span class="price">{{goodsItem.price+'￥'}}</span>
       <span class="collect">{{goodsItem.cfav}}</span>
   </div>
-  </div>
+  </a>
 </template>
 
 <script>
@@ -18,6 +18,20 @@ props:{
             return {}
         }
     }
+},
+methods:{
+    imageLoad(){
+   this.$bus.$emit('itemImageLoad');
+    },
+    itemclick(){
+      this.$router.push('/detail/'+this.goodsItem.iid);
+  }
+
+},
+computed:{
+    showImage(){
+        return this.goodsItem.image ||this.goodsItem.show.img
+    }
 }
 }
 </script>
@@ -26,7 +40,6 @@ props:{
 .goodslistitem {
     position: relative;
     width: 100%;
-    z-index: -1;
 }
 .goodslistitem img {
     border-radius: 5px;

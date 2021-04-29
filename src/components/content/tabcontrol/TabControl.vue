@@ -30,7 +30,7 @@ methods:{
 }
 </script>
 
-<style>
+<style scoped>
 .tab_control {
     display: flex;
     text-align: center;
