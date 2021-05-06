@@ -12,6 +12,7 @@
     </scroll>
     <detail-bottom-bar class="bottomBar" @addCart="addCart"></detail-bottom-bar>
     <back-top  @click.native="topClick" v-show="position>500"></back-top>
+    <!-- <toast :message="message" v-show="showToast"></toast> -->
   </div>
 </template>
 
@@ -31,6 +32,7 @@ import {backTopMixin} from 'common/mixin.js'
 import {debounce} from 'common/utils.js'
 import GoodsList from 'components/content/goods/GoodsList'
 import Scroll from 'components/common/scroll/Scroll'
+// import Toast from 'components/common/toast/Toast'
 
 export default {
   name:"Detail",
@@ -45,6 +47,7 @@ export default {
     DetailParamInfo,
     GoodsList,
     DetailBottomBar,
+    // Toast,
   },
     mixins:[
  backTopMixin
@@ -62,7 +65,8 @@ export default {
             themeTopYs:[],  
             getThemTopYs:null,
             currentIndex:0,
-
+            // message:"",
+            //  showToast:false,
         }
     },
     methods:{
@@ -91,9 +95,27 @@ export default {
         product.desc =  this.goods.desc;
         product.price = this.goods.price;
         product.iid = this.iid;
-        console.log(product);
-        console.log('点击添加到购物车');
+        // this.$store.commit('addCart',product)
+        this.$store.dispatch('addCart',product).then(res=>{this.$toast.show(res,1500)})
+        // this.showToast = true;
+        // setTimeout(()=>{
+        //   this.message = ""
+        //   this.showToast = false;
+        // },1000)
+ 
       },
+      // 立即执行防抖函数
+      debonce(func,during){
+        let timer;
+        return function(){
+             let callNow = !timer;
+          if(timer) clearTimeout(timer);
+          timer = setTimeout(()=>{
+            timer = null;
+          },during)
+          if(callNow)  func();
+        }
+      }
     },
     created(){
       // 保存传入的iid
